@@ -1,0 +1,236 @@
+                    <meta charset="utf-8">
+                       **Python und SQLite**
+                         0.1 Release
+
+Hier werden Syntaxbeispiele für die Verwendung von Python mit SQLite gesammelt. Aus Spaß und weil man in der Informatik oft in Englisch unterwegs ist, ist diese Seite vorwiegen in einfachem (D)englisch gehalten.
+
+Bitte beachten Sie, dass hier nicht die Manuals von SQLite oder die Grundlagen der Programmierung in Python wiederholt werden. Empfehlenswerte Quellen sind:
+
+- https://www.python-kurs.eu/kurs.php
+- https://www.sqlite.org/docs.html
+
+Grundlagen, wie Programmierung überhaupt funktioniert (mit spielerischem Zugang) findet man hier:
+
+- http://www.toxicode.fr/
+
+Die Benutzung der Kommandozeile (CL - command line) und Anleitungen für die Arbeit mit dem Raspberry Pi findet man hier:
+
+- https://www.raspberrypi.org
+
+DDL
+====================================================================================
+
+Creating a database and tables
+-----------------------------------
+
+...with python and sqlite and foreign keys enabled
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~ python
+import sqlite3
+connection = sqlite3.connect("simple_example.db")
+cursor = connection.cursor()
+
+# enable FOREIGN KEYS
+sql_command = """
+PRAGMA foreign_keys = ON;
+"""
+cursor.execute(sql_command)
+
+# delete 
+#cursor.execute("""DROP TABLE employee;""")
+
+sql_command = """
+CREATE TABLE artist(
+  artistid    INTEGER PRIMARY KEY, 
+  artistname  TEXT
+);
+"""
+cursor.execute(sql_command)
+
+sql_command = """
+CREATE TABLE track(
+  trackid INTEGER PRIMARY KEY, 
+  trackname TEXT, 
+  trackartist INTEGER, 
+  FOREIGN KEY(trackartist) 
+     REFERENCES artist(artistid) );
+"""
+
+cursor.execute(sql_command)
+connection.commit()
+connection.close()
+~~~~~~~~~~~~~~~~~~~~
+[python]
+
+printing created tables
+-------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~ python
+con = sqlite3.connect('database.db')
+cursor = con.cursor()
+cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+print(cursor.fetchall())
+~~~~~~~~~~~~~~~~~~~~
+[python]
+
+printing tables in a "formated" way
+------------------------------------
+You have to install prettytables with pip in command line (e.g. bash)
+
+for python2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~ bash
+pip install prettytables
+~~~~~~~~~~~~~~~~~~~~
+[bash]
+
+for python3
+~~~~~~~~~~~~~~~~~~~~~~~~~~~ bash
+pip3 install prettytables
+~~~~~~~~~~~~~~~~~~~~
+[bash]
+
+Now you can print lists. How to get the list out of the database is not explained here.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~ python
+from prettytable import PrettyTable
+t = PrettyTable(['Name', 'Age'])
+t.add_row(['Alice', 24])
+t.add_row(['Bob', 19])
+print t
+~~~~~~~~~~~~~~~~~~~~
+[python]
+prints something like this:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~ bash
++-------+-----+
+|  Name | Age |
++-------+-----+
+| Alice |  24 |
+|  Bob  |  19 |
++-------+-----+
+~~~~~~~~~~~~~~~~~~~~
+[bash]
+
+DML
+===========
+
+Adding some random generated input
+--------------------------------------
+The example code shows, how to create an database and how to insert first some people and later their e-mail adresses.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~ python
+import sqlite3
+import random
+connection = sqlite3.connect("personen_mail.db")
+cursor = connection.cursor()
+
+# enable FOREIGN KEYS
+sql_command = """
+PRAGMA foreign_keys = ON;
+"""
+cursor.execute(sql_command)
+
+# delete 
+#cursor.execute("""DROP TABLE employee;""")
+
+sql_command = """
+CREATE TABLE personen(
+  id    INTEGER PRIMARY KEY, 
+  name  TEXT,
+  password  TEXT
+);
+"""
+cursor.execute(sql_command)
+
+sql_command = """
+CREATE TABLE mail(
+  fk_personen INTEGER, 
+  mail TEXT, 
+  PRIMARY KEY (fk_personen, mail)
+  FOREIGN KEY(fk_personen) 
+     REFERENCES personen(id) )
+  ;
+"""
+
+cursor.execute(sql_command)
+connection.commit()
+
+anzahl = 100
+while anzahl > 0:
+    foo = ''.join(random.choice('abcdefghijklmnopzzzzzzzzzzzzzzzzz') for _ in range(5))
+    print(foo)
+    sql_command = """
+        INSERT INTO personen(name) VALUES (?);
+        """
+    cursor.execute(sql_command,(foo,))
+    anzahl -= 1
+    
+sql = 'SELECT id FROM personen'
+cursor.execute(sql)
+listeMitIds = cursor.fetchall()
+print('starte mailerzeugung')
+for einzelneIds in listeMitIds:
+    i = 2
+    while i > 0:
+        print(einzelneIds[0])
+        foo = ''.join(random.choice('foofoofoofoofoo') for _ in range(3))
+        foo = str(random.randint(1,1000)) + foo
+        print(foo)
+        sql_command = """
+            INSERT INTO mail(fk_personen, mail) VALUES (?,?);
+            """
+        cursor.execute(sql_command,(einzelneIds[0], foo + '@gcm.schule',))
+        i -= 1
+    connection.commit()
+connection.close()
+~~~~~~~~~~~~~~~~~~~~
+[python]
+
+Reading SQL from file
+-----------------------
+The idea is, that you have only one sql-query, but a lot of data (rows) in a single file.
+
+This is a simple way to import a lot of data.
+
+The original code example was kept from [stackoverflow](https://stackoverflow.com/questions/19472922/reading-external-sql-script-in-python).
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~ python
+import sqlite3
+from sqlite3 import OperationalError
+
+conn = sqlite3.connect('my_database.db')
+c = conn.cursor()
+
+# Open and read the file as a single buffer
+fd = open('statement_01.sql', 'r')
+sqlFile = fd.read()
+fd.close()
+
+# Try to execute the query
+try:
+    c.execute(command)
+except OperationalError, msg:
+    print "Command skipped: ", msg
+
+c.close()
+conn.close()
+~~~~~~~~~~~~~~~~~~~~
+[python]
+
+Printing some tables
+------------------------
+
+TODO
+
+
+
+
+
+
+
+<script>markdeepOptions = {mode:'markdeep', tocStyle:'long', definitionStyle:'long', linkAPIDefinitions: false};</script>
+<link rel="stylesheet" href="company-api.css">
+<link rel="shortcut icon" href="../console/favicon.ico">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon-64x64.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js"></script>><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+
