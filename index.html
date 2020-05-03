@@ -51,16 +51,53 @@ Grundkurs Klasse 12
 In dieser Session geht es darum, den DDL-Teil von SQL zu wiederholen. Details werden im Video besprochen.
 
 - [Video](https://www.dropbox.com/s/qc5pvewt4hk5lzy/SC_GK12-2020-04-23_10.05.01.mp4)
-- [Datenstruktur](https://www.dropbox.com/s/93occdy2cpg2qeq/Wetterstation_Datenbank_Datenstruktur.png)
 
-Ich feue mich auf Feedback von Ihnen morgen um 12:00 Uhr.
+![Datenstruktur der Wetterstation](./images/Wetterstation_Datenbank_Datenstruktur.png)
 
+### Videokonferenz für Hilfe und Nachfragen
+
+Am 24.4.20 12:30 Uhr
+
+
+### Lösungen der Schüler*innen
+
+Zwei (von vier) Schüler haben eine Lösung abgegeben. Beide Lösungen sind noch nicht getestet sehen aber auf den ersten Blick ziemlich gut aus.
+
+- [Beispiel 1](.solutions/ddl/sebmi.sql)
+- [Beispiel 2](.solutions/ddl/phiko.sql)
 
 ## Einfügen der Daten in eine SQLite-DB
 
-- [Video](TODO)
-- [Daten](TODO)
+### Aufgabenstellung
 
+Die unten aufgeführten SQL-Dateien enthalten die bis zum 3.5.20 aufgezeichneten Daten der [Wetterstation](http://fbi.gruener-campus-malchow.de/cis/wetterstation/). 
+
+Die Datenmenge in allen Dateien ist übersichtlich, außer was die Messwerte angeht. Diese Datei enthält mehr als 4 Millionen Datensätze und ist als Textdatei 191 MB groß. Bitte beachten Sie die dadurch entstehenden Ladezeiten beim Down- und Upload und natürlich beim Bearbeiten. Der Nutzen einer solchen Datei ist, dass Sie erleben, wie sich die Verarbeitung von großen Datenmengen mit limitierten Ressourcen (Raspberry Pi) "anfühlt".
+
+Bitte gehen Sie in folgenden Teilschritten vor:
+
+1. DDL-SQL-Code mittels Python ausführen und dabei eine SQLite Datenbank anlegen. Achten Sie auf eine vernünftige Reihenfolge! Sie können Fremdschlüssel nur für Datenbanken anlegen, die auch existieren.
+2. Die kleinen(!) SQL-Dateien ausführen und alle Fehler beseitigen. Auch hier dürfte die Reihenfolge eine Rolle spielen, da nur auf Datensätze per FK verwiesen werden kann, die auch existieren.
+3. Essen und Trinken nicht vergessen.
+4. Gut gestärkt und mit Geduld die messwerte.sql-Datei ausführen.
+5. Einen Bericht an [Hr. Baldauf per Mail](baldauf@gruener-campus-malchow.de) senden, in welchem der Erfolg/Misserfolg und die Beobachtungen beschrieben werden. Besonders interessant ist, wieviel Rechenzeit die unterschiedlichen Raspi-Modelle benötigen.
+
+### Hilfestellung
+
+Der Großteil des Codes für die Aufgabe ist in der [Sammlung nützlicher Beispielskripte](./python_sqlite/index.html) zu finden.
+
+Ein Video-Tutorial erstelle ich auf Anfrage nach der Videokonferenz.
+
+### Ressourcen
+- [labels.sql](./raw_data/labels.sql)
+- [sensoren.sql](./raw_data/sensoren.sql)
+- [sensortypen.sql](./raw_data/sensortypen.sql)
+- [stationen.sql](./raw_data/stationen.sql)
+- [messwerte.sql ACHTUNG: 190MB](./raw_data/messwerte.sql)
+
+### Videokonferenz für Hilfe und Nachfragen
+
+Die Konferenz findet am Dienstag, den 5.5.20 um 12:00 Uhr im bekannten Jitsi-Videochat statt. Sie ist nicht verpflichtend. Individuelle Termine sind auf Nachfrage möglich.
 
 <script>markdeepOptions = {mode:'markdeep', tocStyle:'long', definitionStyle:'long', linkAPIDefinitions: false};</script>
 <link rel="stylesheet" href="company-api.css">
