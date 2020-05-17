@@ -35,6 +35,13 @@ Dieser Bereich wurde zuletzt am 2.5.20 aktualisiert.
 
 1. Erstelle in OpenScad eine Plattform für Smartphones, welche auf das Okular eines Mikroskopes gesteckt werden kann. Orientiere Dich an diesem [Adapter (hier klicken)](https://www.mikroskope.net/Mikroskopiezubehoer/Kameraadapter/BRESSER-Deluxe-Smartphone-Adapter-fuer-Teleskope-und-Mikroskope.html). Alle Fähigkeiten zur Erfüllung dieser Aufgabe findest Du in den Videotutorials. Der Durchmesser des Okulars sollte als Variable flexibel gehalten werden.
 
+Weiterführende Aufgaben zur 3D-Modellierung (ab 18.5.20)
+-------------------------------------------
+Dieser Bereich wurde zuletzt am 17.5.20 aktualisiert.
+
+Schaue Dir das neue [Tutorial 6](https://youtu.be/hkYa_dOaS58) an. Darin werden die bisherigen drei Abgaben besprochen und Verbesserungsvorschläge gezeigt.
+
+1. Überarbeite Dein 3D-Modell so, dass es tatsächlich druckbar wäre und wir damit Aufnahmen machen könnten.
 
 Basiskurs Klasse 11
 ========================
@@ -130,6 +137,34 @@ Ein Video-Tutorial erstelle ich auf Anfrage nach der Videokonferenz.
 ### Videokonferenz für Hilfe und Nachfragen
 
 Die Konferenz findet am Dienstag, den 5.5.20 um 12:00 Uhr im bekannten Jitsi-Videochat statt. Sie ist nicht verpflichtend. Individuelle Termine sind auf Nachfrage möglich.
+
+## Verarbeiten der Daten in der SQLite-DB
+
+Es hat zwei Arbeistgruppen gegeben. Neben unsachlichen Kommentaren, die sich v.a. auf Metadaten und spezielle Flags des MYSQL-Dumps beziehen, waren die Gruppen erfolgreich. Das Bemerkenswerteste ist eine Art Benchmark:
+
+### Performance (messwerte.sql)
+
+Disclaimer: die Zeiten beinhalten nicht nur die reine Ausführungszeit der SQL-Datei, sondern die Zeit, die das Python-Script insgesamt benötigt
+
+* Raspberry Pi 4
+ * Raspberry Pi 4 Model B (4GB RAM)
+ * 55,661 Sekunden zum Ausführen von messwerte.sql
+* Ubuntu VM
+ * 87,8 Sekunden zum Ausführen von messwerte.sql
+* Raspberry Pi 3 Model B
+ * 145,415 Sekunden zum Ausführen von messwerte.sql
+* Raspberry Pi Zero
+ * 540,214 Sekunden zum Ausführen von messwerte.sql
+
+### Aufgabe 1: Übernehmen Sie SELECT-Querys
+
+... die schon für das Datenmodell ausgearbeitet wurden. Sie finden die Anfragen unter (http://fbi.gruener-campus-malchow.de/cis/wetterstation/). Betten Sie die SQL-Anfragen in Python-Skripte ein. Schreiben Sie die Ergebnisse der Anfragen als CSV in einzelne Dateien und senden Sie diese per Mail an mich.
+
+### Aufgabe 2: Entwerfen Sie eine Anfrage
+
+... die aus Ihrer Sicht interessante Ergebnisse aus der DB zu Tage fördert. Sie sollen diese Datei nicht als SQL-Query formulieren, sondern stellen die Frage bitte in einem deutschprachigen korrekten (eindeutigen) Satz.
+
+Jeder sollte eine eigene Anfrage (auf seinem individuellen Niveau) formulieren.
 
 <script>markdeepOptions = {mode:'markdeep', tocStyle:'long', definitionStyle:'long', linkAPIDefinitions: false};</script>
 <link rel="stylesheet" href="company-api.css">
