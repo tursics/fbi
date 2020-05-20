@@ -70,11 +70,19 @@ body {
     padding: 8px 0;
     width: 200px;
     border-top: 1px solid #777;
+    border-bottom: 1px solid #777;
+    margin-bottom: -1px;
     line-height: 14px;
 }
 
+.md .longTOC .level3 {
+  font-size: 11px !important;
+  width: 180px;
+  margin-left: 20px;
+}
+
 .md .longTOC .level1 + br + .level2 {
-    border: none;
+    border-top: none;
 }
 
 .md .longTOC .level1, .md .longTOC .level2, .md .longTOC .level3 {
@@ -113,7 +121,7 @@ body {
     background: #f7d7a8;
     color: black;
 }
-    
+
 
 .md code {
     background: unset;
@@ -208,7 +216,7 @@ color: #cf8313;
         bottom: 0;
         margin: 0;
         padding: 0;
-        padding-left:10px;   
+        padding-left:10px;
         padding-top: 130px;
         transition: .5s;
     }
@@ -231,4 +239,3 @@ color: #cf8313;
 }
 
 }
-
