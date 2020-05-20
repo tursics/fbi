@@ -189,6 +189,7 @@ color: #cf8313;
         padding: 0px;
         padding-left:10px;   
         padding-top: -120px;
+	transition: .5s;
     }
 
     .scrolled .md .longTOC {
