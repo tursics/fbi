@@ -36,12 +36,12 @@ PRAGMA foreign_keys = ON;
 """
 cursor.execute(sql_command)
 
-# delete 
+# delete
 #cursor.execute("""DROP TABLE employee;""")
 
 sql_command = """
 CREATE TABLE artist(
-  artistid    INTEGER PRIMARY KEY, 
+  artistid    INTEGER PRIMARY KEY,
   artistname  TEXT
 );
 """
@@ -49,10 +49,10 @@ cursor.execute(sql_command)
 
 sql_command = """
 CREATE TABLE track(
-  trackid INTEGER PRIMARY KEY, 
-  trackname TEXT, 
-  trackartist INTEGER, 
-  FOREIGN KEY(trackartist) 
+  trackid INTEGER PRIMARY KEY,
+  trackname TEXT,
+  trackartist INTEGER,
+  FOREIGN KEY(trackartist)
      REFERENCES artist(artistid) );
 """
 
@@ -129,12 +129,12 @@ PRAGMA foreign_keys = ON;
 """
 cursor.execute(sql_command)
 
-# delete 
+# delete
 #cursor.execute("""DROP TABLE employee;""")
 
 sql_command = """
 CREATE TABLE personen(
-  id    INTEGER PRIMARY KEY, 
+  id    INTEGER PRIMARY KEY,
   name  TEXT,
   password  TEXT
 );
@@ -143,10 +143,10 @@ cursor.execute(sql_command)
 
 sql_command = """
 CREATE TABLE mail(
-  fk_personen INTEGER, 
-  mail TEXT, 
+  fk_personen INTEGER,
+  mail TEXT,
   PRIMARY KEY (fk_personen, mail)
-  FOREIGN KEY(fk_personen) 
+  FOREIGN KEY(fk_personen)
      REFERENCES personen(id) )
   ;
 """
@@ -163,7 +163,7 @@ while anzahl > 0:
         """
     cursor.execute(sql_command,(foo,))
     anzahl -= 1
-    
+
 sql = 'SELECT id FROM personen'
 cursor.execute(sql)
 listeMitIds = cursor.fetchall()
@@ -228,9 +228,8 @@ TODO
 
 
 <script>markdeepOptions = {mode:'markdeep', tocStyle:'long', definitionStyle:'long', linkAPIDefinitions: false};</script>
-<link rel="stylesheet" href="company-api.css">
+<link rel="stylesheet" href="../company-api.css">
 <link rel="shortcut icon" href="../console/favicon.ico">
 <link rel="icon" type="image/png" sizes="64x64" href="favicon-64x64.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js"></script>><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
-
