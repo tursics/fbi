@@ -1,0 +1,104 @@
+                    <meta charset="utf-8">
+                       **Webseite des FBInformatik**
+                         0.1 Release
+
+
+Grundkurs Klasse 12 2019-2020
+========================
+
+## DDL Wiederholung
+
+In dieser Session geht es darum, den DDL-Teil von SQL zu wiederholen. Details werden im Video besprochen.
+
+- [Video](https://www.dropbox.com/s/qc5pvewt4hk5lzy/SC_GK12-2020-04-23_10.05.01.mp4)
+
+![Datenstruktur der Wetterstation](./images/Wetterstation_Datenbank_Datenstruktur.png)
+
+### Videokonferenz für Hilfe und Nachfragen
+
+Am 24.4.20 12:30 Uhr
+
+
+### Lösungen der Schüler*innen
+
+Zwei (von vier) Schüler haben eine Lösung abgegeben. Beide Lösungen sind noch nicht getestet sehen aber auf den ersten Blick ziemlich gut aus.
+
+- [Beispiel 1](.solutions/ddl/sebmi.sql)
+- [Beispiel 2](.solutions/ddl/phiko.sql)
+
+## Einfügen der Daten in eine SQLite-DB
+
+### Aufgabenstellung
+
+Die unten aufgeführten SQL-Dateien enthalten die bis zum 3.5.20 aufgezeichneten Daten der [Wetterstation](http://fbi.gruener-campus-malchow.de/cis/wetterstation/). 
+
+Die Datenmenge in allen Dateien ist übersichtlich, außer was die Messwerte angeht. Diese Datei enthält mehr als 4 Millionen Datensätze und ist als Textdatei 191 MB groß. Bitte beachten Sie die dadurch entstehenden Ladezeiten beim Down- und Upload und natürlich beim Bearbeiten. Der Nutzen einer solchen Datei ist, dass Sie erleben, wie sich die Verarbeitung von großen Datenmengen mit limitierten Ressourcen (Raspberry Pi) "anfühlt".
+
+Bitte gehen Sie in folgenden Teilschritten vor:
+
+1. DDL-SQL-Code mittels Python ausführen und dabei eine SQLite Datenbank anlegen. Achten Sie auf eine vernünftige Reihenfolge! Sie können Fremdschlüssel nur für Datenbanken anlegen, die auch existieren.
+2. Die kleinen(!) SQL-Dateien ausführen und alle Fehler beseitigen. Auch hier dürfte die Reihenfolge eine Rolle spielen, da nur auf Datensätze per FK verwiesen werden kann, die auch existieren.
+3. Essen und Trinken nicht vergessen.
+4. Gut gestärkt und mit Geduld die messwerte.sql-Datei ausführen.
+5. Einen Bericht an [Hr. Baldauf per Mail](baldauf@gruener-campus-malchow.de) senden, in welchem der Erfolg/Misserfolg und die Beobachtungen beschrieben werden. Besonders interessant ist, wieviel Rechenzeit die unterschiedlichen Raspi-Modelle benötigen.
+
+### Hilfestellung
+
+Der Großteil des Codes für die Aufgabe ist in der [Sammlung nützlicher Beispielskripte](./python_sqlite/index.html) zu finden.
+
+Ein Video-Tutorial erstelle ich auf Anfrage nach der Videokonferenz.
+
+### Ressourcen
+- [labels.sql](./raw_data/labels.sql)
+- [sensoren.sql](./raw_data/sensoren.sql)
+- [sensortypen.sql](./raw_data/sensortypen.sql)
+- [stationen.sql](./raw_data/stationen.sql)
+- [messwerte.sql ACHTUNG: 190MB](./raw_data/messwerte.sql)
+
+### Videokonferenz für Hilfe und Nachfragen
+
+Die Konferenz findet am Dienstag, den 5.5.20 um 12:00 Uhr im bekannten Jitsi-Videochat statt. Sie ist nicht verpflichtend. Individuelle Termine sind auf Nachfrage möglich.
+
+## Verarbeiten der Daten in der SQLite-DB
+
+Es hat zwei Arbeistgruppen gegeben. Neben unsachlichen Kommentaren, die sich v.a. auf Metadaten und spezielle Flags des MYSQL-Dumps beziehen, waren die Gruppen erfolgreich. Das Bemerkenswerteste ist eine Art Benchmark:
+
+### Performance (messwerte.sql)
+
+Disclaimer: die Zeiten beinhalten nicht nur die reine Ausführungszeit der SQL-Datei, sondern die Zeit, die das Python-Script insgesamt benötigt
+
+* Raspberry Pi 4
+ * Raspberry Pi 4 Model B (4GB RAM)
+ * 55,661 Sekunden zum Ausführen von messwerte.sql
+* Ubuntu VM
+ * 87,8 Sekunden zum Ausführen von messwerte.sql
+* Raspberry Pi 3 Model B
+ * 145,415 Sekunden zum Ausführen von messwerte.sql
+* Raspberry Pi Zero
+ * 540,214 Sekunden zum Ausführen von messwerte.sql
+
+### Aufgabe 1: Übernehmen Sie SELECT-Querys
+
+... die schon für das Datenmodell ausgearbeitet wurden. Sie finden die Anfragen unter (http://fbi.gruener-campus-malchow.de/cis/wetterstation/). Betten Sie die SQL-Anfragen in Python-Skripte ein. Schreiben Sie die Ergebnisse der Anfragen als CSV in einzelne Dateien und senden Sie diese per Mail an mich.
+
+### Aufgabe 2: Entwerfen Sie eine Anfrage
+
+... die aus Ihrer Sicht interessante Ergebnisse aus der DB zu Tage fördert. Sie sollen diese Datei nicht als SQL-Query formulieren, sondern stellen die Frage bitte in einem deutschprachigen korrekten (eindeutigen) Satz.
+
+Jeder sollte eine eigene Anfrage (auf seinem individuellen Niveau) formulieren.
+
+
+!!! UPDATE
+    Die Aufgabe und auch meine E-Mail (17.5.) an die Arbeitsgruppe wurde bisher (24.5.) nicht bearbeitet. Uns, also eher Ihnen läuft die Zeit davon. Oder habe ich etwas übersehen?
+
+
+<script>markdeepOptions = {mode:'markdeep', tocStyle:'long', definitionStyle:'long', linkAPIDefinitions: false};</script>
+<link rel="stylesheet" href="company-api.css">
+<link rel="shortcut icon" href="../console/favicon.ico">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon-64x64.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js"></script>><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+
+
+
+
