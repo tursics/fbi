@@ -137,6 +137,41 @@ In folgendem Tutorial zeige ich, wie man eine Datenbank in bplaced erstellt und 
 1. Erstelle eine Datenbank und verwende diese im SimpleChat.
 1. Erstelle eine Tabelle in der Datenbank, die den Chatverlauf speichert.
 
+## Ab 11.01.21
+
+Dieser Bereich wurde zuletzt am 11.01.21 um 15:01 Uhr aktualisiert.
+
+Erstelle drei weitere Tabellen in der Datenbank:
+
+users
+| id | username | secret    |
+|----|----------|-----------|
+| 0  | user1    | 234fdw434 |
+| 1  | user2    | 2sb3zjr34 |
+| 2  | marya    | 23kje57y4 |
+
+chats
+| id | chat        |
+|----|-------------|
+| 0  | food        |
+| 1  | computer    |
+
+user_in_chats
+| id_chat | id_user  | timestamp           | public |
+|---------|----------|---------------------|--------|
+| 0       | 0        | 2021-01-11 15:01:00 | true   |
+| 0       | 1        | 2021-01-10 12:21:00 | true   |
+| 0       | 2        | 2021-01-10 12:21:00 | true   |
+| 1       | 2        | 2021-01-10 12:21:00 | true   |
+
+**Aufgabe für diese Woche**
+
+1. Erstellen Sie ein Login, wobei das Passwort zunächst dem "secret" aus der DB entsprechen muss.
+1. Erstellen Sie eine Auflistung aller bekannten Chats. Man soll auswählen können, welchen Chat man betritt.
+1. Ergänzen Sie die Tabelle mit den Posts so, dass sie von speziellen Nutzern stammen und immer in einem Chat stattfinden. Passen Sie auch die Darstellung der Posts entsprechend an.
+
+
+
 ### VideoChat
 
 Für Fragen, Hilfe oder SmallTalk (weniger wichtig), kannst Du mich (Hr. Baldauf) zur Zeit im Stundenplan über den [Link zu JitSi (https://meet.jit.si/gk12inf2021_fbjhe35)](https://meet.jit.si/gk12inf2021_fbjhe35) erreichen.
