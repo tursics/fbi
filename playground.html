@@ -1,0 +1,76 @@
+                    <meta charset="utf-8">
+                       **Webseite des FBInformatik**
+                         Playground
+
+# WTH... Spielplatz?
+
+Unser Spielplatz ist in Wirklichkeit eine High-Tech-Robotik Lernumgebung, in der Du folgende Dinge lernen kannst:
+
+* Wie verbinde ich mich von überall auf dem Planeten mit einem Server?
+* Wie finde ich mich auf dem Rechner zurecht?
+* Wie ist es, wenn ich mir die gleiche Hardware mit anderen Benutzern teile?
+* Wie kann ich Sensoren auslesen und die Daten verarbeiten?
+* Wie kann ich Aktoren ansteuern?
+* Welche Probleme treten bei all diesen Dingen auf?
+
+# Was Du dafür können musst
+
+Grundsätzlich sind die Aufgaben so aufgebaut, dass man ohne Vorkenntnisse zurecht kommen sollte. Vieles von dem, was Du in der Grundschule gelernt hast, ist ausreichend für die Aufgaben.
+
+* Lesen, Schreiben, Englisch, Mathe
+* Grundkenntnisse in Python sind hilfreich
+
+# Wo Du Hilfe finden kannst
+
+* Zunächst ist es hilfreich, wenn Du in der Schule was gelernt hast.
+* Kontaktiere Deinen Lehrer und stelle Fragen.
+* Suche Dir einen der zahlreichen Tutorials aus dem Internet (auch Youtube bietet Hilfe), wenn Dir Grundlagen fehlen. Empfehlenswert sind:
+ * http://www.toxicode.fr/learn (nicht für eine spezielle Programmiersprache)
+ * https://www.python-kurs.eu/
+ * https://www.raspberrypi.org/learn/ (Englisch)
+ * https://tutorials-raspberrypi.de/ (deutschsprachige Sammlung auch für Kinder)
+
+# Dokumentation
+
+![Weg, den Datenpakete vom Benutzern nehmen müssen.](./images/graphviz/Benutzer_zu_Playground.png)
+
+## Disclaimer
+
+Aktuell (16.2.2020) ist der Playground stark in Arbeit. *Level0* ist online und aus dem Internet erreichbar. Level0 besteht nur aus einem PI4 und einer angeschlossenen Kamera. Weitere Level, also Aufbauten mit Sensoren und Aktoren, werden im Laufe der nächsten Wochen gebaut und getestet. Gerade die erste Generation Schüler*innen hat hier Einfluss. Du kannst Rückmeldung geben, was gut klappt und was nicht. Schreibe dazu an baldauf@gruener-campus-malchow.de .
+
+## Zugriff auf den Playground
+
+Grundsätzlich wird per SSH (https://de.wikipedia.org/wiki/Secure_Shell) auf die einzelnen Level zugegriffen. Der Gund: Profis arbeiten weltweit mit SSH. Es ist leicht zu erlernen und leicht zu benutzen. Man benötigt dafür lediglich einen SSH-Client.
+
+Nehmen wir an, der Playground ist über die öffentliche IP-Adresse 91.10.134.126 erreichbar. Der Benutzername ist vielleicht *maxinemusterfrau*. Dann wäre der Befehl im Terminal
+
+~~~
+ssh maxinemusterfrau@91.10.134.126
+~~~
+
+Nun gibt man sein Passwort ein (Achtung, das kann man nicht sehen) und ist, wenn Passwort und Benutzername stimmen, eingeloggt.
+
+### Linux, Windows und MacOS
+
+Beide freie(re) Betriebssysteme haben SSH-Clients standardmäßig an Bord. Seit Windows 10 ist auch SSH aus dem Terminal heraus benutzbar.
+
+### Android
+
+Empfehlenswert ist Termux (https://termux.com/), das man über den freien App-Store F-Droid (https://f-droid.org/packages/com.termux/) oder über den Google-Playstore (https://play.google.com/store/apps/details?id=com.termux&hl=de&gl=US) beziehen kann.
+
+## Level0
+
+Level0 ist ein Raspberry Pi 4, an den eine Kamera angeschlossen ist. Mit diesem kannst Du Grundlagen der Benutzung von Linux lernen oder wiederholen. Gleichzeitig kannst Du mit den Bildern oder den Videos, die damit gemacht werden, die Experimente der späteren Level überwachen. Eine weitere wichtige Funktion ist, dass Level0 den Eingang zu den späteren Level darstellt. Von hier geht es mit ssh zu den anderen Level.
+
+
+
+<script>markdeepOptions = {mode:'markdeep', tocStyle:'long', definitionStyle:'long', linkAPIDefinitions: false};</script>
+<link rel="stylesheet" href="campus.css">
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon-64x64.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js"></script>><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+
+
+
+
