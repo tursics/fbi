@@ -62,6 +62,25 @@ Empfehlenswert ist Termux (https://termux.com/), das man über den freien App-St
 
 Level0 ist ein Raspberry Pi 4, an den eine Kamera angeschlossen ist. Mit diesem kannst Du Grundlagen der Benutzung von Linux lernen oder wiederholen. Gleichzeitig kannst Du mit den Bildern oder den Videos, die damit gemacht werden, die Experimente der späteren Level überwachen. Eine weitere wichtige Funktion ist, dass Level0 den Eingang zu den späteren Level darstellt. Von hier geht es mit ssh zu den anderen Level.
 
+### Erstellung einer Video-Gruppe
+
+Diese Hinweise sind nur wichtig, wenn man einen level0-Rechner nachbauen möchte. Also für Leute, die einen eigenen Pi mit Kamera betreiben und fremden Benutzern den Zugriff auf die Kamera gestatten wollen. Die Befehle sind von https://mike632t.wordpress.com/2014/06/26/raspberry-pi-camera-setup/ übernommen un getestet.
+
+Zunächst wird die eine Benutzergruppe erstellt, die "video" heißt.
+
+~~~bash
+sudo su
+echo 'SUBSYSTEM=="vchiq",GROUP="video",MODE="0660"' > /etc/udev/rules.d/10-vchiq-permissions.rules
+reboot
+~~~
+
+Wenn man nun einen Benutzer anlegt, kann man ihn bei der Erstellung gleich der Gruppe hinzufügen
+
+~~~
+sudo adduser maxinemusterfrau 
+sudo adduser maxinemusterfrau video
+~~~
+
 
 
 <script>markdeepOptions = {mode:'markdeep', tocStyle:'long', definitionStyle:'long', linkAPIDefinitions: false};</script>
