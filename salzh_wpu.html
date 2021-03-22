@@ -267,6 +267,54 @@ Alle weiteren Infos, findest Du in diesem Video.
 
 <video src="https://gcm.schule/video/playground_level0_wie_wir_uns_organisieren.mp4" controls>
 
+### Aufgaben
+
+Inzwischen funktionieren die LEDs, die man auf den neuesten Fotos erkennen kann. Du sollst aber zunächst herausfinden, über welchen PIN, welche LED angesteuert werden kann.
+
+Folgender Code ist geeignet, um die LEDs zu testen:
+
+~~~python
+import RPi.GPIO as GPIO
+import time
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+
+pin = 18  # alternativ: 12, 13
+GPIO.setup(pin,GPIO.OUT)
+
+print "LED on"
+GPIO.output(pin,GPIO.HIGH)
+time.sleep(1)
+print "LED off"
+GPIO.output(18,GPIO.LOW)
+~~~
+
+Du musst bedenken, dass nicht alle gleichzeitig auf die LEDs zugreifen können. Also wundere Dich nicht, wenn die LEDs komische Dinge machen. Außerdem kannst Du ja nur Fotos machen. 
+
+Hier ein wenig Code zum Räubern:
+
+~~~python
+import picamera
+from time import sleep
+
+cam = picamera.PiCamera()
+try:
+   cam.resolution = (800, 600)
+   cam.capture('bild.jpg')
+finally:
+   cam.close()
+~~~
+
+Es bietet sich deshalb an, ein Programm zu schreiben, das folgende Abfolge abarbeitet:
+
+1. LED einschalten
+2. Foto machen
+3. LED ausschalten
+
+Am Ende sollst Du herausbekommen, welcher der PINs (12, 13, 18) für welche Farbe zuständig ist. Das schreibst Du in Deinen Code und lädst den im Lernraum hoch.
+
+
 ### Abgaben
 
 Da der Lernraum offensichtlich stabiler läuft, kehren wir zu unserem alten Workflow zurück. Die Abgaben erfolgen über die Aufgaben im Lernraum. Von dort werde ich aber weiter auf diese Seite verlinken.
