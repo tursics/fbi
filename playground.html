@@ -38,9 +38,17 @@ Grundsätzlich sind die Aufgaben so aufgebaut, dass man ohne Vorkenntnisse zurec
 
 Aktuell (16.2.2020) ist der Playground stark in Arbeit. *Level0* ist online und aus dem Internet erreichbar. Level0 besteht nur aus einem PI4 und einer angeschlossenen Kamera. Weitere Level, also Aufbauten mit Sensoren und Aktoren, werden im Laufe der nächsten Wochen gebaut und getestet. Gerade die erste Generation Schüler*innen hat hier Einfluss. Du kannst Rückmeldung geben, was gut klappt und was nicht. Schreibe dazu an baldauf@gruener-campus-malchow.de .
 
+## Level0
+
+Level0 ist ein Raspberry Pi 4, an den unter anderem eine Kamera angeschlossen ist. Mit diesem kannst Du Grundlagen der Benutzung von Linux lernen oder wiederholen. Gleichzeitig kannst Du mit den Bildern oder den Videos, die damit gemacht werden, die Experimente der späteren Level überwachen. Eine weitere wichtige Funktion ist, dass Level0 den Eingang zu den späteren Level darstellt. Von hier geht es mit ssh zu den anderen Level.
+
+Wir erweitern Level0 soweit um einfache Aufbauten, bis uns der Rechner zu klein wird.
+
+Was wir mit Level0 außerdem erproben, ist, dass wir den Benutzern ordentlich Platz zur Verfügung stellen. Dafür wurde an den Pi 4 per USB3 eine 120GB SATA-SSD angeschlossen. Wir sind sehr gespannt darauf, wie es läuft, wenn wir die Benutzerdaten auf der SSD speichern. Da dann alles an einem Ort ist, können wir leichter Backups erstellen und... falls mal die SD-Karte kaputt geht, haben wir ein Backup der Benutzerdaten...
+
 ## Zugriff auf den Playground
 
-Grundsätzlich wird per SSH (https://de.wikipedia.org/wiki/Secure_Shell) auf die einzelnen Level zugegriffen. Der Gund: Profis arbeiten weltweit mit SSH. Es ist leicht zu erlernen und leicht zu benutzen. Man benötigt dafür lediglich einen SSH-Client.
+Grundsätzlich wird per SSH https://de.wikipedia.org/wiki/Secure_Shell auf die einzelnen Level zugegriffen. Der Gund: Profis arbeiten weltweit mit SSH. Es ist leicht zu erlernen und leicht zu benutzen. Man benötigt dafür lediglich einen SSH-Client.
 
 Nehmen wir an, der Playground ist über die öffentliche IP-Adresse 91.10.134.126 erreichbar. Der Benutzername ist vielleicht *maxinemusterfrau*. Dann wäre der Befehl im Terminal
 
@@ -56,13 +64,110 @@ Beide freie(re) Betriebssysteme haben SSH-Clients standardmäßig an Bord. Seit 
 
 ### Android
 
-Empfehlenswert ist Termux (https://termux.com/), das man über den freien App-Store F-Droid (https://f-droid.org/packages/com.termux/) oder über den Google-Playstore (https://play.google.com/store/apps/details?id=com.termux&hl=de&gl=US) beziehen kann.
+Empfehlenswert ist Termux https://termux.com/, das man über den freien App-Store F-Droid https://f-droid.org/packages/com.termux/ oder über den Google-Playstore https://play.google.com/store/apps/details?id=com.termux&hl=de&gl=US beziehen kann.
 
-## Level0
+### Mit SSH-Keys einloggen
 
-Level0 ist ein Raspberry Pi 4, an den eine Kamera angeschlossen ist. Mit diesem kannst Du Grundlagen der Benutzung von Linux lernen oder wiederholen. Gleichzeitig kannst Du mit den Bildern oder den Videos, die damit gemacht werden, die Experimente der späteren Level überwachen. Eine weitere wichtige Funktion ist, dass Level0 den Eingang zu den späteren Level darstellt. Von hier geht es mit ssh zu den anderen Level.
+Wenn man sich ein paar mal angemeldet hat wird man feststellen, dass man sein Passwort jedes Mal aufs neue eingeben muss. Das kann auf Dauer ziemlich nervig werden. Doch es gibt Rettung: **SSH-Schlüssel**
+
+#### SSH-Schlüsselpaar erstellen
+Ein SSH-Schlüsselpaar besteht aus einem privaten und einem öffentlichen Schlüssel. Den Privaten Schlüssel zeigt man niemandem und behält ihn auf dem Gerät, wo er erstellt wurde. Den öffentlichen Schlüssel hingegenBeide können mit einem einzigen Befehl erzeugt werden:
+
+~~~bash
+ssh-keygen
+~~~
+
+Der Befehl gibt in etwa das aus:
+
+![SSH-Schlüsselpaar erstellen](./images/tut_09_generate_keypair.jpg)
+
+Nun gibt es zwei Möglichkeiten den öffentlichen Schlüssel auf den Server zu bewegen.
+
+---
+
+#### Den Schlüssel automatisch transferieren
+
+Das ist die einfachere Variante funktioniert allerdings nur, wenn 
+*MacOS* oder *Linux* benutzt wird. Nehmen wir an, dass die IP und der Benutzername sich nicht geändert haben, so ist der Befehl
+
+~~~bash
+ssh-copy-id maxinemusterfrau@91.10.134.126
+~~~
+
+Dort gibt man sein Passwort ein letztes Mal ein und dann ist man fertig.
+
+#### Den Schlüssel manuell transferieren
+
+
+Solltest du ein *Windows*-System verwenden, oder `ssh-copy-id`
+hat nicht geklappt, dann wird das Ganze ein wenig komplizierter.
+:::spoiler Aufklappen um die Schritte zu sehen
+
+##### 1. Schlüssel beschaffen
+
+Zuerst musst du in den Benutzer auf dem Computer gehen, auf welchem du die Schlüssel erstellt hast. Dort findest du dann einen Ordner namens ".ssh/",
+
+![Benutzerordner mit .ssh](./images/tut_09_home_folder_with_ssh.jpg)
+
+in welchem du dann die Datei "id_rsa.pub" findest
+
+![SSH Ordner mit id_rsa](./images/tut_09_ssh_folder_with_id_rsa.jpg)
+
+deren kompletten Inhalt makierst du jetzt und kopierst ihn.
+
+##### 2. Vorbereitung auf dem Server
+
+Nun loggst du dich auf dem Server ein. Nehmen wir an, dass die IP und der Benutzername sich nicht geändert haben, so ist der Befehl
+
+~~~bash
+ssh maxinemusterfrau@91.10.134.126
+~~~
+
+Dann überprüfst du mithilfe dieses Befehls, ob das Verzeichnis ".ssh" bereits existiert:
+
+~~~bash
+ls ~/.ssh/
+~~~
+
+Wenn dieser Befehl nun etwas wie
+
+~~~bash
+ls: cannot access '/home/maxinemusterfrau/.ssh/': No such file or directory
+~~~
+
+ausgibt, so muss das Verzeichnis zuerst erstellt werden. Dafür benutzt man den Befehl
+
+~~~bash
+mkdir ~/.ssh
+~~~
+
+##### 3. Schlüssel einfügen
+
+Nun da alle Vorbereitungen abgeschlossen sind, öffnen wir einen Texteditor im Terminal. Ich benutze dafür `nano`:
+
+~~~bash
+nano ~/.ssh/authorized_keys
+~~~
+
+![Nano](./images/tut_09_nano.jpg)
+
+Hier fügt man dann den öffentlichen Schlüssel ein, den man vorher kopiert hat. Sollte in der Datei bereits etwas stehen, so fügt man den Schlüssel einfach in der nächsten Zeile ein.
+
+Um nun zu speichern und den Texteditor zu verlassen, drückt man
+1. `Strg+x`
+1. `y`
+1. `Enter`
+
+#### Ausprobieren
+
+Jetzt kannst du versuchen dich mithilfe von `exit` auszuloggen und dann wieder mit `ssh` einzuloggen. Du solltest diesmal kein Passwort mehr eingeben müssen.
+
 
 # Howto: Level0 bauen und sichern
+
+Das Howto ist für Leute gedacht, die sich selbst einen Playground einrichten wollen. Oder für uns selbst, falls wir was kaputt machen. Wenn jemand von Außerhalb dieses Projekt nachbauen wird, melde Dich bitte. Wir sind sehr gespannt auf Deine Rückmeldungen über Probleme und Erfolge.
+
+[Playground HOWTO](playground_howto.html)
 
 ## Installation
 
