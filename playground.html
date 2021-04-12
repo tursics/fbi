@@ -38,9 +38,17 @@ Grundsätzlich sind die Aufgaben so aufgebaut, dass man ohne Vorkenntnisse zurec
 
 Aktuell (16.2.2020) ist der Playground stark in Arbeit. *Level0* ist online und aus dem Internet erreichbar. Level0 besteht nur aus einem PI4 und einer angeschlossenen Kamera. Weitere Level, also Aufbauten mit Sensoren und Aktoren, werden im Laufe der nächsten Wochen gebaut und getestet. Gerade die erste Generation Schüler*innen hat hier Einfluss. Du kannst Rückmeldung geben, was gut klappt und was nicht. Schreibe dazu an baldauf@gruener-campus-malchow.de .
 
+## Level0
+
+Level0 ist ein Raspberry Pi 4, an den unter anderem eine Kamera angeschlossen ist. Mit diesem kannst Du Grundlagen der Benutzung von Linux lernen oder wiederholen. Gleichzeitig kannst Du mit den Bildern oder den Videos, die damit gemacht werden, die Experimente der späteren Level überwachen. Eine weitere wichtige Funktion ist, dass Level0 den Eingang zu den späteren Level darstellt. Von hier geht es mit ssh zu den anderen Level.
+
+Wir erweitern Level0 soweit um einfache Aufbauten, bis uns der Rechner zu klein wird.
+
+Was wir mit Level0 außerdem erproben, ist, dass wir den Benutzern ordentlich Platz zur Verfügung stellen. Dafür wurde an den Pi 4 per USB3 eine 120GB SATA-SSD angeschlossen. Wir sind sehr gespannt darauf, wie es läuft, wenn wir die Benutzerdaten auf der SSD speichern. Da dann alles an einem Ort ist, können wir leichter Backups erstellen und... falls mal die SD-Karte kaputt geht, haben wir ein Backup der Benutzerdaten...
+
 ## Zugriff auf den Playground
 
-Grundsätzlich wird per SSH (https://de.wikipedia.org/wiki/Secure_Shell) auf die einzelnen Level zugegriffen. Der Gund: Profis arbeiten weltweit mit SSH. Es ist leicht zu erlernen und leicht zu benutzen. Man benötigt dafür lediglich einen SSH-Client.
+Grundsätzlich wird per SSH https://de.wikipedia.org/wiki/Secure_Shell auf die einzelnen Level zugegriffen. Der Gund: Profis arbeiten weltweit mit SSH. Es ist leicht zu erlernen und leicht zu benutzen. Man benötigt dafür lediglich einen SSH-Client.
 
 Nehmen wir an, der Playground ist über die öffentliche IP-Adresse 91.10.134.126 erreichbar. Der Benutzername ist vielleicht *maxinemusterfrau*. Dann wäre der Befehl im Terminal
 
@@ -56,138 +64,110 @@ Beide freie(re) Betriebssysteme haben SSH-Clients standardmäßig an Bord. Seit 
 
 ### Android
 
-Empfehlenswert ist Termux (https://termux.com/), das man über den freien App-Store F-Droid (https://f-droid.org/packages/com.termux/) oder über den Google-Playstore (https://play.google.com/store/apps/details?id=com.termux&hl=de&gl=US) beziehen kann.
+Empfehlenswert ist Termux https://termux.com/, das man über den freien App-Store F-Droid https://f-droid.org/packages/com.termux/ oder über den Google-Playstore https://play.google.com/store/apps/details?id=com.termux&hl=de&gl=US beziehen kann.
 
-## Level0
+### Mit SSH-Keys einloggen
 
-Level0 ist ein Raspberry Pi 4, an den eine Kamera angeschlossen ist. Mit diesem kannst Du Grundlagen der Benutzung von Linux lernen oder wiederholen. Gleichzeitig kannst Du mit den Bildern oder den Videos, die damit gemacht werden, die Experimente der späteren Level überwachen. Eine weitere wichtige Funktion ist, dass Level0 den Eingang zu den späteren Level darstellt. Von hier geht es mit ssh zu den anderen Level.
+Wenn man sich ein paar mal angemeldet hat wird man feststellen, dass man sein Passwort jedes Mal aufs neue eingeben muss. Das kann auf Dauer ziemlich nervig werden. Doch es gibt Rettung: **SSH-Schlüssel**
+
+#### SSH-Schlüsselpaar erstellen
+Ein SSH-Schlüsselpaar besteht aus einem privaten und einem öffentlichen Schlüssel. Den Privaten Schlüssel zeigt man niemandem und behält ihn auf dem Gerät, wo er erstellt wurde. Den öffentlichen Schlüssel hingegenBeide können mit einem einzigen Befehl erzeugt werden:
+
+~~~bash
+ssh-keygen
+~~~
+
+Der Befehl gibt in etwa das aus:
+
+![SSH-Schlüsselpaar erstellen](./images/tut_09_generate_keypair.jpg)
+
+Nun gibt es zwei Möglichkeiten den öffentlichen Schlüssel auf den Server zu bewegen.
+
+---
+
+#### Den Schlüssel automatisch transferieren
+
+Das ist die einfachere Variante funktioniert allerdings nur, wenn 
+*MacOS* oder *Linux* benutzt wird. Nehmen wir an, dass die IP und der Benutzername sich nicht geändert haben, so ist der Befehl
+
+~~~bash
+ssh-copy-id maxinemusterfrau@91.10.134.126
+~~~
+
+Dort gibt man sein Passwort ein letztes Mal ein und dann ist man fertig.
+
+#### Den Schlüssel manuell transferieren
+
+
+Solltest du ein *Windows*-System verwenden, oder `ssh-copy-id`
+hat nicht geklappt, dann wird das Ganze ein wenig komplizierter.
+:::spoiler Aufklappen um die Schritte zu sehen
+
+##### 1. Schlüssel beschaffen
+
+Zuerst musst du in den Benutzer auf dem Computer gehen, auf welchem du die Schlüssel erstellt hast. Dort findest du dann einen Ordner namens ".ssh/",
+
+![Benutzerordner mit .ssh](./images/tut_09_home_folder_with_ssh.jpg)
+
+in welchem du dann die Datei "id_rsa.pub" findest
+
+![SSH Ordner mit id_rsa](./images/tut_09_ssh_folder_with_id_rsa.jpg)
+
+deren kompletten Inhalt makierst du jetzt und kopierst ihn.
+
+##### 2. Vorbereitung auf dem Server
+
+Nun loggst du dich auf dem Server ein. Nehmen wir an, dass die IP und der Benutzername sich nicht geändert haben, so ist der Befehl
+
+~~~bash
+ssh maxinemusterfrau@91.10.134.126
+~~~
+
+Dann überprüfst du mithilfe dieses Befehls, ob das Verzeichnis ".ssh" bereits existiert:
+
+~~~bash
+ls ~/.ssh/
+~~~
+
+Wenn dieser Befehl nun etwas wie
+
+~~~bash
+ls: cannot access '/home/maxinemusterfrau/.ssh/': No such file or directory
+~~~
+
+ausgibt, so muss das Verzeichnis zuerst erstellt werden. Dafür benutzt man den Befehl
+
+~~~bash
+mkdir ~/.ssh
+~~~
+
+##### 3. Schlüssel einfügen
+
+Nun da alle Vorbereitungen abgeschlossen sind, öffnen wir einen Texteditor im Terminal. Ich benutze dafür `nano`:
+
+~~~bash
+nano ~/.ssh/authorized_keys
+~~~
+
+![Nano](./images/tut_09_nano.jpg)
+
+Hier fügt man dann den öffentlichen Schlüssel ein, den man vorher kopiert hat. Sollte in der Datei bereits etwas stehen, so fügt man den Schlüssel einfach in der nächsten Zeile ein.
+
+Um nun zu speichern und den Texteditor zu verlassen, drückt man
+1. `Strg+x`
+1. `y`
+1. `Enter`
+
+#### Ausprobieren
+
+Jetzt kannst du versuchen dich mithilfe von `exit` auszuloggen und dann wieder mit `ssh` einzuloggen. Du solltest diesmal kein Passwort mehr eingeben müssen.
+
 
 # Howto: Level0 bauen und sichern
 
-## Installation
+Das Howto ist für Leute gedacht, die sich selbst einen Playground einrichten wollen. Oder für uns selbst, falls wir was kaputt machen. Wenn jemand von Außerhalb dieses Projekt nachbauen wird, melde Dich bitte. Wir sind sehr gespannt auf Deine Rückmeldungen über Probleme und Erfolge.
 
-Wie man einen Raspi installiert, kann man überall im Netz finden, das wiederhole ich nicht.
-
-## Nach dem Flashen
-
-Ich lege eine leere Datei namens "ssh" in die Boot-Partition. Dadurch wird der SSH-Server automatisch aktiviert und ich komme ohne Maus, Tastatur und Bildschirm über ein Terminal über das Netzwerk an den Pi.
-
-Dazu sollte der Pi per LAN-Kabel an ein Netz angeschlossen sein. Ich besorge mir von dem Router (bzw. DHCP-Server) die IP-Adresse des Pi mit dem Hostname "raspberrypi".
-
-Wenn ich seine IP-Adresse habe, kann ich mich mit SSH verbinden...
-
-![SHH-Datei](./images/tut_01.png)
-
-## Konfiguration
-
-Ich verbinde mich mit dem Pi und gebe das Standard-Passwort "raspberry" ein, dann starte ich das mitgelieferte Konfigurationsprogramm.
-
-~~~bash
-ssh pi@192.168.23.14
-sudo raspi-config
-~~~
-
-![SHH-Datei erstellen](./images/tut_02.png)
-
-![Sich mit dem Pi verbinden](./images/tut_02.png)
-
-In den System-Options 
-
-1. ...gebe ich dem Pi einen neuen Hostname, damit ich ihn später leichter im Netzwerk erkennen kann. Wenn im LAN DNS funktioniert, kann ich damit auch den Pi erreichen.
-
-1. Ich setze ein neues Admin-Passwort (SEHR SEHR SEHR SEHR Wichtig).
-
-In den Interface-Options
-
-1. Aktiviere ich die Kamera...
-
-Das ist das Minimale. Natürlich kann man noch Updates installieren und die Ländereinstellungen machen. Wenn man letzteres aber nicht tut, funktioniert auch kein Wifi und ich habe keinen potentiellen Wifi-Sniffer.
-
-Neustarten will der Pi nach Abschluss der Konfiguration von selbst.
-
-![Das Konfigurationsprogramm](./images/tut_03.png)
-
-## Feste IP-Adresse einstellen
-
-Das ist nicht Pflicht, aber bei uns ist der Pi in einer [DMZ](https://de.wikipedia.org/wiki/Demilitarisierte_Zone_(Informatik)) und ich muss eine ordentliche [NAT-Konfiguration](https://de.wikipedia.org/wiki/Netzwerkadress%C3%BCbersetzung) machen. Das erkläre ich hier nicht. Das Ziel ist, dass Anfragen am DSL-Router auf dem Standard-SSH-Port an den Pi mit der festen IP geleitet werden. Darum geht es.
-
-Man öffnet hierzu die Konfig-Datei des DHCP-Clients:
-
-~~~bash
-sudo nano /etc/dhcpcd.conf
-~~~
-
-Ich scrolle bis zu den mitgelieferten Beispielen:
-
-![Beispiel vor der Änderung](./images/tut_04.png)
-
-Nun kommentiere ich die Zeilen aus und ändere den Inhalt nach meinen Vorstellungen. In diesem Fall bekommt der Pi eine Adresse, die zu der restlichen Netzwerkkonfiguration passt.
-
-![Einstellung nach der Änderung](./images/tut_05.png)
-
-Nach dem Speichern, fahre ich den Pi herunter und schließe ihn in der DMZ dort an, wo ich ihn brauche.
-
-~~~bash
-sudo halt
-~~~
-
-Schließlich testen wir, ob der Pi ordentlich aus dem internen Netz erreichbar ist.
-
-~~~bash
-ping 192.168.33.22
-~~~
-
-![Ein Ping, Juchu, alles wird gut](./images/tut_06.png)
-
-## Gatekeeper statt dyndns
-
-Normalerweise würde man für solche Szenarien ein [DynDNS](https://de.wikipedia.org/wiki/Dynamisches_DNS) einrichten. Das tun wir aber aus zwei Gründen nicht:
-
-1. (Dyn)DNS versteckt einen Teil der Funktionsweises des Internets und von aktuellen LANs. Das Eintippen und Besorgen von IP-Adressen ist für die Schüler*innen vielleicht lästig, wird sich aber sicher in ihre Erinnerung brennen.
-
-1. Durch den ständigen Wechsel der IP-Adresse verstecken wir uns regelmäßig vor Angreifern. Also zumindest vor weniger guten Angreifern der Art [Scriptkiddie](https://de.wikipedia.org/wiki/Scriptkiddie).
-
-Loggen wir uns zunächst auf dem Pi ein und starten das Einstellen eines Cronjobs
-
-~~~bash
-crontab -e
-~~~
-
-![Beim ersten mal crontab editieren wird man gefragt, welchen Editor man nimmt. Ich mag nano.](./images/tut_07.png)
-
-Dort ergänzt man die Zeile
-
-~~~bash
-*/10 * * * * /usr/bin/curl "https://gcm.schule/url/zum/gatekeeper/?api=megageheim" > /dev/null
-~~~
-Natürlich hängt die URL davon ab, wie man den Gatekeeper gebaut hat.
-
-![Die URL ist hier verändert...](./images/tut_08.png)
-
-## Erstellung einer Video-Gruppe
-
-Diese Hinweise sind nur wichtig, wenn man einen level0-Rechner nachbauen möchte. Also für Leute, die einen eigenen Pi mit Kamera betreiben und fremden Benutzern den Zugriff auf die Kamera gestatten wollen. Die Befehle sind von https://mike632t.wordpress.com/2014/06/26/raspberry-pi-camera-setup/ übernommen un getestet.
-
-Zunächst wird die eine Benutzergruppe erstellt, die "video" heißt.
-
-~~~bash
-sudo su
-echo 'SUBSYSTEM=="vchiq",GROUP="video",MODE="0660"' > /etc/udev/rules.d/10-vchiq-permissions.rules
-reboot
-~~~
-
-Wenn man nun einen Benutzer anlegt, kann man ihn nach der Erstellung gleich der Gruppe hinzufügen:
-
-~~~
-sudo adduser maxinemusterfrau 
-sudo adduser maxinemusterfrau video
-~~~
-
-## Einrichten von Quotas
-
-Damit Benutzer nicht versehentlich mit der Kamera ein Video erstellen, dass den gesamten Speicher belegt, müssen Quotas eingerichtet werden.
-
-TODO!!!!
+[Playground HOWTO](playground_howto.html)
 
 <script>markdeepOptions = {mode:'markdeep', tocStyle:'long', definitionStyle:'long', linkAPIDefinitions: false};</script>
 <link rel="stylesheet" href="campus.css">
