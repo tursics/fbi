@@ -283,11 +283,11 @@ GPIO.setwarnings(False)
 pin = 18  # alternativ: 12, 13
 GPIO.setup(pin,GPIO.OUT)
 
-print "LED on"
+print("LED on")
 GPIO.output(pin,GPIO.HIGH)
 time.sleep(1)
-print "LED off"
-GPIO.output(18,GPIO.LOW)
+print("LED off")
+GPIO.output(pin,GPIO.LOW)
 ~~~
 
 Du musst bedenken, dass nicht alle gleichzeitig auf die LEDs zugreifen können. Also wundere Dich nicht, wenn die LEDs komische Dinge machen. Außerdem kannst Du ja nur Fotos machen. 
