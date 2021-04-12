@@ -322,6 +322,63 @@ Da der Lernraum offensichtlich stabiler läuft, kehren wir zu unserem alten Work
 1. Weil ich zwei Jahrgänge parallel führe.
 1. Weil auch Außenstehende von unserem Projekt profitieren können sollen.
 
+## Ab 12.04.2021
+
+### Aufgaben
+
+1. Erstelle ein Programm, bei dem zwischen den Farben der LEDs durch Knopfdruck gewechselt wird.
+1. Stelle Dir vor, die LEDs wären eine Ampel. Erstelle ein Programm, bei dem automatisch alle 10s zwischen einer Grün-Phase und einer Rot-Phase gewechselt wird. Beachte, dass es als Übergang von Rot zu Grün die Rot-Gelb-Phase, dann die Gelb-Phase erscheint. Von Grün zu Rot wird nur eine kurze Gelb-Phase erscheinen. Die beiden Gelb-Phasen sollen 3s lang dauern. 
+
+![Ampelphasen](./images/Traffic_lights_4_states.svg)
+
+### Abgaben
+
+Die Abgaben erfolgen über die Aufgaben im Lernraum. Es soll dort der Pythoncode hochgeladen werden. Wenn Du ein cooles Video von der eigenen Ampel gemacht hast, kannst Du mir das gern per Mail senden (max. 30MB), damit ich mir das gleich anschauen kann. Alternativ bin ich auch per Signal/Telegram/Discord/Threema erreichbar.
+
+### Hilfestellungen
+
+Funktionen könnnen helfen, den Code übersichtlicher zu gestalten.
+
+~~~python
+import RPi.GPIO as GPIO
+import time
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+
+pin_A = 18  
+pin_B = 12
+pin_C = 13
+
+GPIO.setup(pin_A,GPIO.OUT)
+GPIO.setup(pin_B,GPIO.OUT)
+GPIO.setup(pin_C,GPIO.OUT)
+
+# Hier folgt die Funktion mit Kopf und Körper
+def ein_A(zeit):
+   GPIO.output(pin_A,GPIO.HIGH)
+   time.sleep(zeit)
+   GPIO.output(pin_A,GPIO.LOW)   
+   
+while True:
+   ein_A(10) # Das ist der Aufruf der Funktion
+   time.sleep(3)
+   
+~~~
+
+Um mit Python einzelne Tastatureingaben zu erkennen, kann ein weiteres Modul von Python Verwendung finden. Dieses Code-Beispiel stammt von https://stackoverflow.com/questions/24072790/detect-key-press-in-python
+
+~~~python
+import keyboard
+
+while True:
+    if keyboard.is_pressed("p"):
+        print("You pressed p")
+        break
+~~~
+
+
+
 
 <script>markdeepOptions = {mode:'markdeep', tocStyle:'long', definitionStyle:'long', linkAPIDefinitions: false};</script>
 <link rel="stylesheet" href="campus.css">
