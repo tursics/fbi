@@ -366,15 +366,17 @@ while True:
    
 ~~~
 
-Um mit Python einzelne Tastatureingaben zu erkennen, kann ein weiteres Modul von Python Verwendung finden. Dieses Code-Beispiel stammt von https://stackoverflow.com/questions/24072790/detect-key-press-in-python
+Um mit Python die Enter-Taste abzufangen ohne weitere Module zu verwenden, bedienen wir uns eines Tricks. Wir benutzen den input-Befehl und ignorieren alle Eingaben. Das Code-Beispiel hier schaltet natürlich noch keine LEDs.
 
 ~~~python
-import keyboard
-
+farben = ['rot', 'gelb', 'grün']
+auswahl = 0
 while True:
-    if keyboard.is_pressed("p"):
-        print("You pressed p")
-        break
+        input('Press ENTER!')
+        print(str(farben[auswahl]))
+        auswahl += 1
+        if auswahl > 2:
+                auswahl = 0
 ~~~
 
 
