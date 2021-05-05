@@ -15,7 +15,7 @@ Unser Spielplatz ist in Wirklichkeit eine High-Tech-Robotik Lernumgebung, in der
 
 # Was Du dafür können musst
 
-Grundsätzlich sind die Aufgaben so aufgebaut, dass man ohne Vorkenntnisse zurecht kommen sollte. Vieles von dem, was Du in der Grundschule gelernt hast, ist ausreichend für die Aufgaben.
+Grundsätzlich sind die Aufgaben so aufgebaut, dass man ohne Vorkenntnisse zurechtkommen sollte. Vieles von dem, was Du in der Grundschule gelernt hast, ist ausreichend für die Aufgaben.
 
 * Lesen, Schreiben, Englisch, Mathe
 * Grundkenntnisse in Python sind hilfreich
@@ -24,7 +24,7 @@ Grundsätzlich sind die Aufgaben so aufgebaut, dass man ohne Vorkenntnisse zurec
 
 * Zunächst ist es hilfreich, wenn Du in der Schule was gelernt hast.
 * Kontaktiere Deinen Lehrer und stelle Fragen.
-* Suche Dir einen der zahlreichen Tutorials aus dem Internet (auch Youtube bietet Hilfe), wenn Dir Grundlagen fehlen. Empfehlenswert sind:
+* Suche Dir einen der zahlreichen Tutorials aus dem Internet (auch YouTube bietet Hilfe), wenn Dir Grundlagen fehlen. Empfehlenswert sind:
  * http://www.toxicode.fr/learn (nicht für eine spezielle Programmiersprache)
  * https://www.python-kurs.eu/
  * https://www.raspberrypi.org/learn/ (Englisch)
@@ -36,11 +36,11 @@ Grundsätzlich sind die Aufgaben so aufgebaut, dass man ohne Vorkenntnisse zurec
 
 ## Disclaimer
 
-Aktuell (16.2.2020) ist der Playground stark in Arbeit. *Level0* ist online und aus dem Internet erreichbar. Level0 besteht nur aus einem PI4 und einer angeschlossenen Kamera. Weitere Level, also Aufbauten mit Sensoren und Aktoren, werden im Laufe der nächsten Wochen gebaut und getestet. Gerade die erste Generation Schüler*innen hat hier Einfluss. Du kannst Rückmeldung geben, was gut klappt und was nicht. Schreibe dazu an baldauf@gruener-campus-malchow.de .
+Aktuell (16.2.2020) ist der Playground stark in Arbeit. *Level0* ist online und aus dem Internet erreichbar. Level0 besteht nur aus einem PI4 und einer angeschlossenen Kamera. Weitere Level, also Aufbauten mit Sensoren und Aktoren, werden im Laufe der nächsten Wochen gebaut und getestet. Gerade die erste Generation Schüler*innen hat hier Einfluss. Du kannst Rückmeldung geben, was gut funktioniert und was nicht. Schreibe dazu an baldauf@gruener-campus-malchow.de .
 
 ## Level0
 
-Level0 ist ein Raspberry Pi 4, an den unter anderem eine Kamera angeschlossen ist. Mit diesem kannst Du Grundlagen der Benutzung von Linux lernen oder wiederholen. Gleichzeitig kannst Du mit den Bildern oder den Videos, die damit gemacht werden, die Experimente der späteren Level überwachen. Eine weitere wichtige Funktion ist, dass Level0 den Eingang zu den späteren Level darstellt. Von hier geht es mit ssh zu den anderen Level.
+Level0 ist ein Raspberry Pi 4, an den unter anderem eine Kamera angeschlossen ist. Mit diesem kannst Du Grundlagen der Benutzung von Linux lernen oder wiederholen. Gleichzeitig kannst Du mit den Bildern oder den Videos, die damit gemacht werden, die Experimente der späteren Level überwachen. Eine weitere wichtige Funktion ist, dass Level0 den Eingang zu dem späteren Level darstellt. Von hier geht es mit SSH zu dem anderen Level.
 
 Wir erweitern Level0 soweit um einfache Aufbauten, bis uns der Rechner zu klein wird.
 
@@ -48,7 +48,7 @@ Was wir mit Level0 außerdem erproben, ist, dass wir den Benutzern ordentlich Pl
 
 ## Zugriff auf den Playground
 
-Grundsätzlich wird per SSH https://de.wikipedia.org/wiki/Secure_Shell auf die einzelnen Level zugegriffen. Der Gund: Profis arbeiten weltweit mit SSH. Es ist leicht zu erlernen und leicht zu benutzen. Man benötigt dafür lediglich einen SSH-Client.
+Grundsätzlich wird per SSH https://de.wikipedia.org/wiki/Secure_Shell auf die einzelnen Level zugegriffen. Der Grund: Profis arbeiten weltweit mit SSH. Es ist leicht zu erlernen und leicht zu benutzen. Man benötigt dafür lediglich einen SSH-Client.
 
 Nehmen wir an, der Playground ist über die öffentliche IP-Adresse 91.10.134.126 erreichbar. Der Benutzername ist vielleicht *maxinemusterfrau*. Dann wäre der Befehl im Terminal
 
@@ -68,10 +68,10 @@ Empfehlenswert ist Termux https://termux.com/, das man über den freien App-Stor
 
 ### Mit SSH-Keys einloggen
 
-Wenn man sich ein paar mal angemeldet hat wird man feststellen, dass man sein Passwort jedes Mal aufs neue eingeben muss. Das kann auf Dauer ziemlich nervig werden. Doch es gibt Rettung: **SSH-Schlüssel**
+Wenn man sich ein paar mal angemeldet hat wird man feststellen, dass man sein Passwort jedes Mal aufs Neue eingeben muss. Das kann auf Dauer ziemlich nervig werden. Doch es gibt Rettung: **SSH-Schlüssel**
 
 #### SSH-Schlüsselpaar erstellen
-Ein SSH-Schlüsselpaar besteht aus einem privaten und einem öffentlichen Schlüssel. Den Privaten Schlüssel zeigt man niemandem und behält ihn auf dem Gerät, wo er erstellt wurde. Den öffentlichen Schlüssel hingegenBeide können mit einem einzigen Befehl erzeugt werden:
+Ein SSH-Schlüsselpaar besteht aus einem privaten und einem öffentlichen Schlüssel. Den Privaten Schlüssel zeigt man niemandem und behält ihn auf dem Gerät, wo er erstellt wurde. Den öffentlichen Schlüssel hingegen Beide können mit einem einzigen Befehl erzeugt werden:
 
 ~~~bash
 ssh-keygen
@@ -113,7 +113,7 @@ in welchem du dann die Datei "id_rsa.pub" findest
 
 ![SSH Ordner mit id_rsa](./images/tut_09_ssh_folder_with_id_rsa.jpg)
 
-deren kompletten Inhalt makierst du jetzt und kopierst ihn.
+deren kompletten Inhalt markierst du jetzt und kopierst ihn.
 
 ##### 2. Vorbereitung auf dem Server
 
